@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 dotenv.config({ path: "./config.env" });
 
 mongoose.set("strictQuery", false);
-const URI = process.env.MONGO_URI;
+const URI = process.env.MONGOURI;
 
 const connection = async () => {
   try {
