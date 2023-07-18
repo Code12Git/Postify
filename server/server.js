@@ -20,9 +20,15 @@ connection();
 
 // Middlewares
 app.use(cookieParser());
-app.use(cors({ origin: "https://postify-rho.vercel.app", credentials: true }));
+app.use(
+  cors({
+    origin: "https://postify-rho.vercel.app",
+    credentials: true,
+    exposedHeaders: ["Access-Control-Allow-Credentials"],
+  })
+);
 
-app.options("*", cors());
+// app.options("*", cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/api/auth", authRoute);
