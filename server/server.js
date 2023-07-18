@@ -23,7 +23,10 @@ connection();
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: [
+      "http://localhost:3000",
+      "https://64b6506baf58b443afd9cb1b--effortless-entremet-72356e.netlify.app",
+    ],
     credentials: true,
   })
 );
