@@ -22,7 +22,7 @@ connection();
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "https://postify-rho.vercel.app/",
+    origin: "https://postify-rho.vercel.app",
     credentials: true,
     exposedHeaders: ["Access-Control-Allow-Credentials"],
   })
