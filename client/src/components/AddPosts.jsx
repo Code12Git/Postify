@@ -82,8 +82,8 @@ const AddPosts = () => {
             </button>
           </div>
         </div>
-        <Posts post={post} fetchData={fetchData} />
       </div>
+      <Posts post={post} fetchData={fetchData} />
     </>
   );
 };
