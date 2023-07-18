@@ -25,7 +25,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:3000",
-      "https://64b6506baf58b443afd9cb1b--effortless-entremet-72356e.netlify.app",
+      "https://64b651c7b7e43446785a3589--aquamarine-meerkat-4a2492.netlify.app",
     ],
     credentials: true,
   })
