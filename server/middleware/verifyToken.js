@@ -10,7 +10,7 @@ export const verifyToken = (req, res, next) => {
   }
 
   try {
-    const user = jwt.verify(token, process.env.SECRETKEY);
+    const user = jwt.verify(token, process.env.SECRET_KEY);
     req.user = user;
     next();
   } catch (err) {
