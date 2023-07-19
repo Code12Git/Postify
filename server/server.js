@@ -35,6 +35,14 @@ app.use("/api/post", postRoute);
 
 // Test route
 app.get("/", (req, res) => {
+  res.cookie("myCookie", "cookieValue", {
+    domain: "postify-frontend.onrender.com",
+    path: "/",
+    httpOnly: true,
+    secure: true,
+    sameSite: "strict",
+  });
+
   res.send("Test Route");
 });
 
