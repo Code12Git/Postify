@@ -1,8 +1,10 @@
 import axios from "axios";
 
-const BASE_URL = "https://postify-z1gf.onrender.com/api";
+const BASE_URL = process.env.REACT_APP_SERVER_URL;
 
-export const publicRequest = axios.create({
+const publicRequest = axios.create({
   baseURL: BASE_URL,
   withCredentials: true,
 });
+
+export default publicRequest;
