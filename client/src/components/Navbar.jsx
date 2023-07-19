@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { publicRequest } from "../utils/axios";
+import publicRequest from "../utils/axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 

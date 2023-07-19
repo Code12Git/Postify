@@ -1,7 +1,7 @@
 import React from "react";
 import { format } from "timeago.js";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { publicRequest } from "../utils/axios";
+import publicRequest from "../utils/axios";
 import { ToastContainer, toast } from "react-toastify";
 import Modal from "./Modal";
 const Post = ({ post, fetchData }) => {

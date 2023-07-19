@@ -4,7 +4,7 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import EditIcon from "@mui/icons-material/Edit";
 import { Button } from "@mui/material";
-import { publicRequest } from "../utils/axios";
+import publicRequest from "../utils/axios";
 import { ToastContainer, toast } from "react-toastify";
 
 const style = {
@@ -40,6 +40,7 @@ export default function BasicModal({ post, fetchData }) {
 
   return (
     <div>
+      <ToastContainer />
       <EditIcon className="text-lime-400 cursor-pointer" onClick={handleOpen} />
       <Modal
         open={open}
