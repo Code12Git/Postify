@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useState } from "react";
-import publicRequest from "../utils/axios";
+import publicRequest, { userRequest } from "../utils/axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Posts from "./Posts";
@@ -16,7 +16,8 @@ const AddPosts = () => {
 
   const fetchData = async () => {
     try {
-      const res = await publicRequest.get("/post");
+      const res = await userRequest.get("/post");
+
       setPost(res.data.posts);
     } catch (err) {
       console.error(err);
@@ -26,7 +27,7 @@ const AddPosts = () => {
     e.preventDefault();
     try {
       if (title && description) {
-        const res = await publicRequest.post("/post", { title, description });
+        const res = await userRequest.post("/post", { title, description });
         await res.data;
         toast("Post Created Successfully");
         fetchData();

@@ -1,13 +1,14 @@
 import React from "react";
 import { format } from "timeago.js";
 import DeleteIcon from "@mui/icons-material/Delete";
-import publicRequest from "../utils/axios";
+import { userRequest } from "../utils/axios";
 import { ToastContainer, toast } from "react-toastify";
 import Modal from "./Modal";
 const Post = ({ post, fetchData }) => {
+  console.log(post);
   const deleteHandler = async (userId) => {
     try {
-      const res = await publicRequest.delete(`/post/${userId}`);
+      const res = await userRequest.delete(`/post/${userId}`);
       await res.data;
       toast.success("Post deleted successfully");
       fetchData();

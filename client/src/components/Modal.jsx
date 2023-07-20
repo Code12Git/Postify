@@ -4,7 +4,7 @@ import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import EditIcon from "@mui/icons-material/Edit";
 import { Button } from "@mui/material";
-import publicRequest from "../utils/axios";
+import { userRequest } from "../utils/axios";
 import { ToastContainer, toast } from "react-toastify";
 
 const style = {
@@ -29,7 +29,7 @@ export default function BasicModal({ post, fetchData }) {
 
   const handleUpdate = async () => {
     try {
-      await publicRequest.put(`post/${post._id}`, { title, description });
+      await userRequest.put(`post/${post._id}`, { title, description });
       toast.success("Post updated successfully");
       handleClose();
       fetchData();

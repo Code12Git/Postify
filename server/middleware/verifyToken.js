@@ -3,29 +3,15 @@ import dotenv from "dotenv";
 
 dotenv.config({ path: "./config" });
 export const verifyToken = (req, res, next) => {
-  const token = req.cookies.access_token;
-
-  if (!token) {
-    return res.status(401).json({ message: "User is not authenticated" });
-  }
-
-  try {
-    const user = jwt.verify(token, process.env.SECRET_KEY);
-    req.user = user;
-    next();
-  } catch (err) {
-    return res.status(403).json({ message: "Token is invalid" });
-  }
-};
-
-export const verifyTokenAndAuthorization = (req, res, next) => {
-  verifyToken(req, res, () => {
-    if (req.user && req.user.id === req.params.id) {
+  const authHeader = req.headers.token;
+  if (authHeader) {
+    const token = authHeader.split(" ")[1];
+    jwt.verify(token, process.env.SECRET_KEY, (err, user) => {
+      if (err) res.status(403).json("Token is not valid!");
+      req.user = user;
       next();
-    } else {
-      res
-        .status(403)
-        .json({ message: "You do not have permission to perform this action" });
-    }
-  });
+    });
+  } else {
+    return res.status(401).json("You are not authenticated!");
+  }
 };

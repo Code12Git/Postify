@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-import publicRequest from "../utils/axios";
+
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
@@ -10,7 +10,6 @@ const Navbar = () => {
   const auth = JSON.parse(localStorage.getItem("user"));
   const handleLogout = async () => {
     try {
-      await publicRequest.post("/auth/logout");
       localStorage.removeItem("user");
       navigate("/login");
     } catch (err) {
@@ -44,7 +43,7 @@ const Navbar = () => {
         <nav className="md:ml-auto flex flex-wrap items-center text-base justify-center">
           <div className="flex gap-4">
             {auth ? (
-              <div className="flex gap-2 items-center">
+              <div className="flex gap-4 items-center">
                 <p>
                   Logged in as:{" "}
                   <span className="text-red-400 font-serif">{auth.name}</span>

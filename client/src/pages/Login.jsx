@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import publicRequest from "../utils/axios";
+import publicRequest, { userRequest } from "../utils/axios";
 import { useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { NavLink } from "react-router-dom";
 const Login = () => {
   const [credentials, setCredentials] = useState({
-    email: "",
+    username: "",
     password: "",
   });
   const navigate = useNavigate();
@@ -16,16 +16,31 @@ const Login = () => {
   };
 
   const submitHandler = async (e) => {
-    const { email, password } = credentials;
+    e.preventDefault();
+
+    const { username, password } = credentials;
+
     try {
-      const res = await publicRequest.post("/auth/login", credentials);
-      if (!email && !password) {
-        toast.error("Please enter your email and password");
+      if (!username || !password) {
+        toast.error("Please enter your username and password");
+        return;
       }
-      await res.data;
+
+      const res = await publicRequest.post("/auth/login", {
+        username,
+        password,
+      });
+
+      // Assuming the response data contains the user information
+
+      const { userData, accessToken } = res.data;
+
+      // Store user data in localStorage
+      localStorage.setItem("user", JSON.stringify(userData));
+      localStorage.setItem("access_token", accessToken);
+
       toast.success("Login successful");
       navigate("/");
-      localStorage.setItem("user", JSON.stringify(res.data));
     } catch (err) {
       toast.error(err.message);
     }
@@ -50,12 +65,12 @@ const Login = () => {
           </h2>
           <div class="relative mb-4">
             <label for="full-name" class="leading-7 text-sm text-gray-600">
-              Email
+              Username
             </label>
             <input
-              type="email"
-              id="email"
-              name="email"
+              type="text"
+              id="username"
+              name="username"
               onChange={inputChangeHandler}
               class="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
             />

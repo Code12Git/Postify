@@ -32,7 +32,7 @@ export const registerUser = async (req, res) => {
 // Login user
 export const loginUser = async (req, res) => {
   try {
-    const user = await User.findOne({ email: req.body.email });
+    const user = await User.findOne({ username: req.body.username });
     if (!user) {
       return res.status(403).json({ message: "User not found" });
     } else {
@@ -41,32 +41,15 @@ export const loginUser = async (req, res) => {
         return res.status(400).json({ message: "Password does not match" });
       }
       const { password: userPassword, ...userData } = user._doc;
-      const token = jwt.sign(
+      const accessToken = jwt.sign(
         {
           id: user._id,
         },
-        process.env.SECRET_KEY
+        process.env.SECRET_KEY,
+        { expiresIn: "2d" }
       );
-      const { password, ...others } = user._doc;
-      res
-        .cookie("access_token", token, {
-          httpOnly: true,
-        })
-        .status(200)
-        .json(others);
+      res.status(200).json({ userData, accessToken });
     }
-  } catch (err) {
-    res.status(500).json({ message: err.message });
-  }
-};
-
-//Logout user
-export const logoutUser = (req, res) => {
-  try {
-    res
-      .cookie("access_token", "", { expires: new Date(0), httpOnly: true })
-      .status(200)
-      .json({ message: "Logged out successfully" });
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
